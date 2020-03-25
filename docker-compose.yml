@@ -18,8 +18,8 @@ services:
     hostname: p4runtime
     container_name: p4runtime
     privileged: true
-    tty: true
-    stdin_open: true
+    #tty: true
+    #stdin_open: true
     volumes:
       - ./tmp:/tmp
       - ./p4build:/p4build
