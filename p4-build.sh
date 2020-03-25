@@ -20,4 +20,5 @@ docker run --rm -v ${FILEPATH}:/workdir -w /workdir ${P4C_IMG} \
 		p4c-bm2-ss --arch v1model -o ${BUILDDIR}/bmv2.json \
             --p4runtime-files ${BUILDDIR}/p4info.txt --Wdisable=unsupported \
 		${FILENAME}
+mv $FILEPATH/$BUILDDIR $BUILDDIR
 echo "Done."
