@@ -4,4 +4,10 @@ This repo is for prototyping a 5G User-Plane Function (UPF) written in v1-model 
 * A p4runtime docker image that is used for a naive control plane used to test the validity of the p4 program. The control plane is in p4runtime/ and it will not be production grade.
 * An ONOS docker image will be added and used for prototyping a production grade ONOS app used to control the UPF.
 
+The commands required for testing are all present in the Makefile.
+* First, initialize the containers with `make start`. This will launch the bmv2 switch and control plane. 
+* Next, tap into the bmv2 log with `make bmv2-log` to watch packet events in the switch.
+* Then, create a listener for traffic leaving the switch: `make recv-gtp`
+* Finally, send traffic into the switch: `make send-gtp`.
+
 The UPF will be built as an extension to ONOS's fabric.p4, which has been forked and added as a submodule to this repo. The main (fabric.p4) can be found [here](https://github.com/robertmacdavid/onos/tree/master/pipelines/fabric/impl/src/main/resources).
