@@ -17,4 +17,4 @@ send-gtp:
 	docker-compose exec bmv2 /trafficgen/gtp_endpoint.py send
 
 recv-gtp:
-	docker-compose exec bmv2 /trafficgen/gtp_endoint.py recv
+	docker-compose exec bmv2 /trafficgen/gtp_endpoint.py recv

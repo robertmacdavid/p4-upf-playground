@@ -6,9 +6,7 @@ import sys
 
 GTP_PORT = 2152
 OUT_IFACE = 'veth1'
-#OUT_IFACE = 'veth0'
 OUT_MAC = 'ce:b9:04:59:7e:37'
-#OUT_MAC = '1e:76:1d:8a:f6:5b'
 def send_gtp():
     pkt = Ether(dst=OUT_MAC) / \
             IP(dst='192.168.0.1') / \
@@ -23,7 +21,7 @@ def send_gtp():
     print("Done.")
 
 def sniff_gtp():
-    sniff(iface='any', prn=lambda x:x.show, filter="udp port %d" % GTP_PORT, count=1)
+    sniff(iface=OUT_IFACE, prn=lambda x:x.show, filter="udp port %d" % GTP_PORT, count=1)
 
 if __name__ == "__main__":
     usage = "usage: %s <send|recv>" % sys.argv[0]
