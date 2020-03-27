@@ -1,32 +1,36 @@
 version: "3"
 
 services:
-  mininet:
-    image: opennetworking/p4mn
-    hostname: mininet
-    container_name: mininet
+  bmv2:
+    #image: opennetworking/mn-stratum
+    build: ./bmv2img
+    hostname: bmv2
+    container_name: bmv2
     privileged: true
     tty: true
     stdin_open: true
     volumes:
       - ./tmp:/tmp
-      - ./mininet:/mininet
-    entrypoint: "mn --custom bmv2.py --switch simple_switch_grpc --controller none"
+      - ./bmv2img:/bmv2img
+      - ./trafficgen:/trafficgen
+        #entrypoint: "mn --custom bmv2.py --switch simple_switch_grpc --controller none"
+        #entrypoint: "mn --custom /root/stratum.py --switch stratum-bmv2 --host no-offload-host --controller none"
+    entrypoint: "/bmv2img/start_bmv2.sh"
 
   p4runtime:
     image: p4lang/p4runtime-sh
     hostname: p4runtime
     container_name: p4runtime
     privileged: true
-    #tty: true
-    #stdin_open: true
+    tty: true
+    stdin_open: true
     volumes:
       - ./tmp:/tmp
       - ./p4build:/p4build
       - ./p4runtime:/p4runtime
     links: 
-      - mininet
+      - bmv2
     entrypoint: "/p4runtime/docker_entry_point.sh"
     #entrypoint: "/bin/bash"
     depends_on:
-      - mininet
+      - bmv2
