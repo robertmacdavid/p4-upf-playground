@@ -5,9 +5,9 @@ This repo is for prototyping a 5G User-Plane Function (UPF) written in v1-model 
 * An ONOS docker image will be added and used for prototyping a production grade ONOS app used to control the UPF.
 
 The commands required for testing are all present in the Makefile.
-* First, initialize the containers with `make start`. This will launch the bmv2 switch and control plane. 
+* First, initialize the containers with `make start`. This will launch the bmv2 switch and static control plane, installing sufficient p4runtime table entries for a simple end-to-end packet test. 
 * Next, tap into the bmv2 log with `make bmv2-log` to watch packet events in the switch.
-* Then, create a listener for traffic leaving the switch: `make recv-gtp`
-* Finally, send traffic into the switch: `make send-gtp`.
+* Then, create a listener for traffic leaving the switch with either `make recv-gtp` or `make recv-ip`
+* Finally, send traffic into the switch using either `make send-gtp` or `make send-ip`. Send GTP if you're receiving IP (and vice versa) since the switch encapsulates and decapsulates GTP tunnels.
 
 The UPF will be built as an extension to ONOS's fabric.p4, which has been forked and added as a submodule to this repo. The main (fabric.p4) can be found [here](https://github.com/robertmacdavid/onos/tree/master/pipelines/fabric/impl/src/main/resources).
